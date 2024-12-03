@@ -67,5 +67,11 @@ if (isset($_POST['content']) && ($_POST['content'] != "\0")){
 				<a href="index.php" class="btn btn-primary m-4">Back to prompt index</a>
 			</div>
 		</div>
+		<?php if ($_SESSION['username'] == '') { ?>
+            <script>
+                alert("Error: You shouldn't be here...");
+                window.location.href = '../index.php';
+            </script>
+        <?php } ?>
 	</body>
 </html>

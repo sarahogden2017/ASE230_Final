@@ -38,5 +38,11 @@
                 <input type="submit" class="btn btn-primary m-4">
             </form>
         </div>
+        <?php if ($_SESSION['username'] == '') { ?>
+            <script>
+                alert("Error: You shouldn't be here...");
+                window.location.href = '../index.php';
+            </script>
+        <?php } ?>
     </body>
 </html>
