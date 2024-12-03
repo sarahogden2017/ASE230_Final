@@ -2,6 +2,6 @@
 Final project for server side programming
 
 ## Team Members
-Milo Adams
-Kayla Saunders
-Sarah Ogden
+Milo Adams  
+Kayla Saunders  
+Sarah Ogden  
