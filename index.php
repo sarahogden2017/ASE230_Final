@@ -23,14 +23,15 @@
       <!-- Sign in, sign up, or continue as guest -->
       <h2>SIGN IN</h2>
       <form action="login_scripts/sign_in.php" method="post">
-        <input type="text" name="username_signin" placeholder="Username">
-        <input type="password" name="password_signin" placeholder="Password">
+        <input type="text" name="username_signin" placeholder="Username" required>
+        <input type="password" name="password_signin" placeholder="Password" required>
         <input type="submit" value="Sign In" class="btn btn-success">
       </form>
       <h2>SIGN UP</h2>
       <form action="login_scripts/sign_up.php" method="post">
-        <input type="text" name="username_signup" placeholder="Username">
-        <input type="password" name="password_signup" placeholder="Password">
+        <input type="text" name="username_signup" placeholder="Username" required>
+        <input type="password" name="password_signup" placeholder="Password" required>
+        <input type="email" name="email" placeholder="Email" required>
         <input type="submit" value="Sign Up" class="btn btn-success">
       </form>
       <form action="" method="post">

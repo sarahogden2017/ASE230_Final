@@ -1,15 +1,30 @@
 <?php
-    if (strlen($_POST['username_signup']) > 0 && strlen($_POST['password_signup']) > 0) {
-        $username = $_POST['username_signup'];
-        $password = $_POST['password_signup'];
-        echo $username;
-        // check if user exists
-        
-        // add user to database
-    }
-    // throw error for invalid user info
+    require_once('db.php');
+
+    $username = $_POST['username_signup'];
+    $password = $_POST['password_signup'];
+    $email = $_POST['email'];
+    
+    // check if user exists        
+    $sql = "SELECT * FROM users WHERE username = :username OR email = :email";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(['username' => $username, 'email' => $email]);
+    if ($stmt->rowCount() > 0) {
+        $message = "User already exists.";
+    }    
+    // add user to database
     else {
-        $message = "Please enter a username and password.";
+        $sql = "INSERT INTO users (username, email, stories_contributed, password_hash) 
+                VALUES (:username, :email, :stories_contributed, :password_hash)";        
+        $stmt = $db->prepare($sql);
+        $data = [
+            ':username' => $username,
+            ':email' => $email,
+            ':stories_contributed' => 0, // Default value
+            ':password_hash' => $password
+        ];
+        $stmt->execute($data);
+        $message = "User created";
     }
 ?>
 
