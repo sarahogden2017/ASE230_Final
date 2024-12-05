@@ -16,5 +16,4 @@
 
     //Establish a connection to the db
     $db=new PDO('mysql:host='.$host.';dbname='.$name.';charset=utf8mb4',$user,$pass,$opt);
-    
 ?>
