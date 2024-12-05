@@ -1,48 +1,6 @@
 <?php
   session_start();
   $message = "";
-  
-  // sign in
-  if (isset($_POST['username_signin']) && isset($_POST['password_signin'])) {
-    $username = $_POST['username_signin'];
-    $password = $_POST['password_signin'];
-    $f = fopen("users.csv", "r");
-    while ($line = fgetcsv($f)) {
-      if ($line[0] == $username && $line[1] == $password) {
-        $_SESSION['username'] = $username;
-        header("Location: ./post/index.php");
-        exit();
-      }
-      elseif ($line[0] == $username && $line[1] != $password) {
-        $message = "Incorrect password.";
-        break;
-      }
-      else {
-        $message = "User not found.";
-      }
-    }
-    fclose($f);
-  }
-
-  // sign up
-  if (isset($_POST['username_signup']) && isset($_POST['password_signup'])) {
-    $username = $_POST['username_signup'];
-    $password = $_POST['password_signup'];
-    $f = fopen("users.csv", "a+");
-    $user_exists = false;
-    while ($line = fgetcsv($f)) {
-      if ($line[0] == $username) {
-        $user_exists = true;
-        $message = "User already exists.";
-        break;
-      }
-    }
-    if (!$user_exists) {
-      fputcsv($f, [$username, $password]);
-      fclose($f);
-      $message = "User created, please sign in.";
-    }
-  }
 
   // form validation
   if (isset($_POST['username_signin']) && !isset($_POST['password_signin'])) {
@@ -79,13 +37,13 @@
     <div class="container justify-content-center align-items-center">
       <!-- Sign in, sign up, or continue as guest -->
       <h2>SIGN IN</h2>
-      <form action="" method="post">
+      <form action="login_scripts/sign_in.php" method="post">
         <input type="text" name="username_signin" placeholder="Username">
         <input type="password" name="password_signin" placeholder="Password">
         <input type="submit" value="Sign In" class="btn btn-success">
       </form>
       <h2>SIGN UP</h2>
-      <form action="" method="post">
+      <form action="login_scripts/sign_up.php" method="post">
         <input type="text" name="username_signup" placeholder="Username">
         <input type="password" name="password_signup" placeholder="Password">
         <input type="submit" value="Sign Up" class="btn btn-success">
