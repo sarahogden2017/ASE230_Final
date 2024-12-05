@@ -1,20 +1,5 @@
 <?php
   session_start();
-  $message = "";
-
-  // form validation
-  if (isset($_POST['username_signin']) && !isset($_POST['password_signin'])) {
-    $message = "Please enter a password.";
-  }
-  if (isset($_POST['username_signup']) && !isset($_POST['password_signup'])) {
-    $message = "Please enter a password.";
-  }
-  if (isset($_POST['password_signin']) && !isset($_POST['username_signin'])) {
-    $message = "Please enter a username.";
-  }
-  if (isset($_POST['password_signup']) && !isset($_POST['username_signup'])) {
-    $message = "Please enter a username.";
-  }
 
   // continue as guest
   if (isset($_POST['guest'])) {
@@ -53,11 +38,4 @@
       </form>
     </div>
   </body>
-
-  <script>
-    var message = "<?php echo $message; ?>";
-    if (message) {
-      alert(message);
-    }
-  </script>
 </html>
