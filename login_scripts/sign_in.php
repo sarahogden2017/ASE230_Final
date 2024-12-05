@@ -18,6 +18,11 @@
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['stories_contributed'] = $user['stories_contributed'];
                 $_SESSION['id'] = $user['id'];
+                header("Location: ./post/index.php");
+                exit();
+            }
+            else {
+                $message = "Incorrect password.";
             }
         }
     }
