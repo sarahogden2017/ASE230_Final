@@ -5,13 +5,37 @@
         $entity_array = json_decode($jsonString, true);
         $entity_array[] = $entity;
         file_put_contents('./posts.json', json_encode($entity_array, JSON_PRETTY_PRINT));
+
+        // add to database
+        require_once('../login_scripts/db.php');
+
+        $sql = "INSERT INTO writing_prompts (user_id, prompt_text, responses, visibility) 
+                VALUES (:user_id, :prompt_text, :responses, :visibility)";    
+        $stmt = $db->prepare($sql);
+        $data = [
+            ':user_id' => $_SESSION['user_id'],
+            ':prompt_text' => $entity['prompt'],
+            ':responses' => 0, //default value
+            ':visibility' => $entity['visibility']
+        ];
+        try {
+            $stmt->execute($data);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_POST['visibility'] == 'public') {
+            $visibility = 1;
+        } else {
+            $visibility = 0;
+        }
         $entity = [
             'prompt' => $_POST['prompt'],
             'story' => [],
             'author' => $_SESSION['username'],
+            'visibility' => $visibility
         ];
         save_entity($entity);
         header('Location: index.php');
