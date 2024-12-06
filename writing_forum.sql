@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 06, 2024 at 06:35 PM
+-- Generation Time: Dec 06, 2024 at 06:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,9 +69,10 @@ CREATE TABLE `writing_prompts` (
   `prompt_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `prompt_text` mediumtext NOT NULL,
+  `responses` int(11) NOT NULL DEFAULT 0,
+  `visibility` tinyint(1) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_updated` datetime NOT NULL DEFAULT current_timestamp(),
-  `responses` int(11) NOT NULL DEFAULT 0
+  `date_updated` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -119,7 +120,7 @@ ALTER TABLE `writing_posts`
 -- AUTO_INCREMENT for table `writing_prompts`
 --
 ALTER TABLE `writing_prompts`
-  MODIFY `prompt_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `prompt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
