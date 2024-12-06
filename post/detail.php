@@ -23,8 +23,8 @@
 			<h1 class="bg-primary text-white p-3 w-100"><?=$post[$i]['prompt'];?></h1>
 		</div>
 		<div class="container text-center">
-			<h3>Prompted by:<small class="text-body-secondary"><?=$post[$i]['author'];?></small></h3>
-			<h4><br /> <br /> The continuous story starts here: <br /></h4>
+			<h3>Prompted by: <small class="text-body-secondary"><?=$post[$i]['author'];?></small></h3>
+			<h4><br /><br />The continuous story starts here:<br /></h4>
 		</div>
 		
 		<div class="container">

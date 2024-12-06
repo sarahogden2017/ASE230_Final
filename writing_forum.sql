@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 05, 2024 at 05:54 AM
+-- Generation Time: Dec 06, 2024 at 06:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,12 +30,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `username` tinytext NOT NULL,
-  `real_name` tinytext NOT NULL,
+  `email` tinytext NOT NULL,
   `date_joined` date NOT NULL DEFAULT current_timestamp(),
-  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
   `stories_contributed` int(11) NOT NULL DEFAULT 0,
-  `password_hash` tinytext NOT NULL
+  `password_hash` tinytext NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `email`, `date_joined`, `stories_contributed`, `password_hash`, `is_admin`) VALUES
+(1, 'bob', 'bob@gmail.com', '2024-12-05', 0, '123', 1);
 
 -- --------------------------------------------------------
 
@@ -91,6 +98,28 @@ ALTER TABLE `writing_posts`
 ALTER TABLE `writing_prompts`
   ADD PRIMARY KEY (`prompt_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `writing_posts`
+--
+ALTER TABLE `writing_posts`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `writing_prompts`
+--
+ALTER TABLE `writing_prompts`
+  MODIFY `prompt_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

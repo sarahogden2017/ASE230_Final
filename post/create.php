@@ -34,10 +34,16 @@
         <div class="container justify-content-center align-items-center">
             <form action="create.php" method="post">
                 <label class="h2" for="new_story">Prompt</label>
-                <input type="text" class="form-control" id="prompt" name="prompt" required>
+                <input type="text" class="form-control" id="prompt" name="prompt" required><br>
+                <h4>Visibility</h4>
+                <input type="radio" id="visibility" name="visibility" value="public" checked>
+                <label for="visibility">Public</label><br>
+                <input type="radio" id="visibility" name="visibility" value="private">
+                <label for="visibility">Private</label><br>
                 <input type="submit" class="btn btn-primary m-4">
             </form>
         </div>
+        <!-- security check -->
         <?php if ($_SESSION['username'] == '') { ?>
             <script>
                 alert("Error: You shouldn't be here...");
