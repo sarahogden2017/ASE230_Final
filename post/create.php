@@ -43,6 +43,6 @@
                 alert("Error: You shouldn't be here...");
                 window.location.href = '../index.php';
             </script>
-        <?php } ?>
+        <?php } ?>        
     </body>
 </html>

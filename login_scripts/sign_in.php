@@ -22,6 +22,7 @@
             $_SESSION['email'] = $user['email'];
             $_SESSION['stories_contributed'] = $user['stories_contributed'];
             $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['is_admin'] = $user['is_admin'];
             header("Location: ../post/index.php");
             exit();
         }

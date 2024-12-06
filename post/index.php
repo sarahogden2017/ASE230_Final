@@ -17,25 +17,10 @@ function display_entity($entity_array) {
 		    </div>
 		  </div>
 		<?php if ($i%3==0 && $i != 0){ 
-		echo "</div><div class='row'>";		
-		}?>
-	<?php }
-	/*
-	for($i=0;$i<count($col_2_array);$i++) { ?>
-		<div class="card-group">
-			<div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
-				<div class="card-body">
-				<h4 class="card-title"><?=$col_2_array[$i]['prompt'] ?></h4>
-				<h6 class="card-subtitle mb-2 text-muted"><?=$col_2_array[$i]['user'] ?></h6>
-				<p><a href="detail.php?post_id=<?= $i ?>" class="btn btn-primary">Go to prompt</a></p>
-				</div>
-			</div>
-		</div>
-	<?php } */
-}
-
-?>
-
+		  echo "</div><div class='row'>";		
+		}
+  }
+} ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,13 +45,13 @@ function display_entity($entity_array) {
     </div>
   </div>
   <div class="container">
-    <?php if($_SESSION['username']!="guest" && isset($_SESSION['username'])){ ?>
+    <?php if($_SESSION['username'] != "guest" || $_SESSION['username'] != ''){ ?>
 			<a href="create.php" class="btn btn-primary m-4">Create a New Story!</a>
     <?php } ?>
   </div> 
   <div class="container">
-    <?php if($_SESSION['username']!="guest" && isset($_SESSION['username'])){ ?>
-      <a href="../logout.php" class="btn btn-danger m-4">Logout</a>
+    <?php if($_SESSION['username'] != "guest" || $_SESSION['username'] != ''){ ?>
+      <a href="../login_scripts/logout.php" class="btn btn-danger m-4">Logout</a>
     <?php } ?>
   </div> 
 </body>

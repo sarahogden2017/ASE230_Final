@@ -15,13 +15,14 @@
     // add user to database
     else {
         $sql = "INSERT INTO users (username, email, stories_contributed, password_hash) 
-                VALUES (:username, :email, :stories_contributed, :password_hash)";        
+                VALUES (:username, :email, :stories_contributed, :password_hash, :is_admin)";        
         $stmt = $db->prepare($sql);
         $data = [
             ':username' => $username,
             ':email' => $email,
             ':stories_contributed' => 0, // Default value
-            ':password_hash' => $password
+            ':password_hash' => $password,
+            ':is_admin' => 0 // Default value
         ];
         $stmt->execute($data);
         $message = "User created";
