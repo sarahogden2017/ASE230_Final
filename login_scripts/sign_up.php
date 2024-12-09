@@ -14,8 +14,8 @@
     }    
     // add user to database
     else {
-        $sql = "INSERT INTO users (username, email, stories_contributed, password_hash) 
-                VALUES (:username, :email, :stories_contributed, :password_hash, :is_admin)";        
+        $sql = "INSERT INTO users (user_id, username, email, date_joined, stories_contributed, password_hash, is_admin) 
+                VALUES (NULL, :username, :email, DEFAULT, :stories_contributed, :password_hash, :is_admin)";        
         $stmt = $db->prepare($sql);
         $data = [
             ':username' => $username,
