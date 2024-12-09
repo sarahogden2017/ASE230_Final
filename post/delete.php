@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['id'])) {
     $stmt->execute(['id' => $entity_id]);
     $prompt = $stmt->fetch();
 
-    if ($prompt && $_SESSION['user_id'] == $prompt['user_id']) {
+    if ($prompt && $_SESSION['user_id'] == $prompt['user_id'] || $_SESSION['is_admin'] == 1) {
         delete_posts_by_prompt($db, $entity_id);
         delete_prompt($db, $entity_id);
         header('Location: index.php');
