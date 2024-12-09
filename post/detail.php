@@ -27,16 +27,10 @@
 	}
 
 	function get_posts($prompt_id, $db) {
-		try {
-			$sql = $sql = 'SELECT * FROM users INNER JOIN writing_posts ON users.user_id = writing_prompts.user_id WHERE prompt_id=:prompt_id;';
-			$stmt = $db->prepare($sql);
-			$stmt->execute(['prompt_id' => $prompt_id]);
-			$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			return $posts;
-		} catch (PDOException $e) {
-			$posts = [];
-		}
-		return $posts;
+		$stmt = $db->prepare("SELECT * FROM users INNER JOIN writing_posts ON users.user_id = writing_posts.user_id WHERE prompt_id = :prompt_id ORDER BY date_created ASC");
+        $stmt->execute(['prompt_id' => $prompt_id]);
+        $story_additions = $stmt->fetchAll();
+		return $story_additions;
 	}
 
 	function display_posts($posts) {
@@ -47,7 +41,6 @@
 						<div class='column' style='float:right;width: 50%;'>{$post['text']}</div>
 						
 						<p text-align='center'>{$post['text']}</p>
-					</div>
 				</div>";
 		}
 	}
