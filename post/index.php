@@ -1,26 +1,55 @@
 <?php
-session_start();
-function get_entity() {
-    $jsonString = file_get_contents('./posts.json');
-    $entity_array = json_decode($jsonString, true);
+  session_start(); 
+  // connect to db
+	
+  function get_entity() {
+    // connect to db
+    require_once('../login_scripts/db.php');   
+
+    // make sql command
+    if ($_SESSION['username'] == "guest" || $_SESSION['username'] == '') {
+      $sql = "SELECT wp.*, u.username FROM writing_prompts wp 
+              LEFT JOIN users u ON wp.user_id = u.user_id 
+              WHERE visibility = 1";
+      $stmt = $db->prepare($sql);
+      $stmt->execute();
+  } elseif ($_SESSION['is_admin'] != 1) {
+      $sql = "SELECT wp.*, u.username FROM writing_prompts wp 
+              LEFT JOIN users u ON wp.user_id = u.user_id 
+              WHERE visibility = 1 OR (visibility = 0 AND wp.user_id = :user_id)";
+      $stmt = $db->prepare($sql);
+      $stmt->execute([':user_id' => $_SESSION['user_id']]);
+  } else {
+      $sql = "SELECT wp.*, u.username FROM writing_prompts wp 
+              LEFT JOIN users u ON wp.user_id = u.user_id";
+      $stmt = $db->prepare($sql);
+      $stmt->execute();
+    }
+    $entity_array = $stmt->fetchAll();
     return $entity_array;
-}
-function display_entity($entity_array) {
-    for($i=0;$i<count($entity_array);$i++) { ?>
-		  <div class="col">
-		    <div class="card text-white bg-dark mb-3" style="max-width:30rem;">
-			    <div class="card-body">
-				    <h4 class="card-title"><?=$entity_array[$i]['prompt'] ?></h4>
-				    <h6 class="card-text">Created by: <?=$entity_array[$i]['author'] ?></h6>
-				    <p><a href="detail.php?post_id=<?= $i ?>" class="btn btn-light">Go to prompt</a></p>
-			    </div>
-		    </div>
-		  </div>
-		<?php if ($i%3==0 && $i != 0){ 
-		  echo "</div><div class='row'>";		
-		}
   }
-} ?>
+
+  function display_entity($entity_array) {
+      for($i=0;$i<count($entity_array);$i++) { ?>
+        <div class="col">
+          <div class="card text-white bg-dark mb-3" style="max-width:30rem;">
+            <div class="card-body">
+              <h4 class="card-title"><?= htmlspecialchars($entity_array[$i]['prompt_text']) ?></h4>
+              <h6 class="card-text">Created by: <?= htmlspecialchars($entity_array[$i]['username']) ?></h6>
+              <?php if ($_SESSION['username'] != "guest" || $_SESSION['username'] != ''){ ?>
+                <em><p>Visibility: <?= $entity_array[$i]['visibility'] == 1 ? 'Public' : 'Private' ?></p></em>
+              <?php } ?>
+              <h8 class="card-text">Created by: <?= htmlspecialchars($entity_array[$i]['username']) ?></h6>
+              <p><a href="detail.php?post_id=<?= $entity_array[$i]['prompt_id'] ?>" class="btn btn-light">Go to prompt</a></p>
+            </div>
+          </div>
+        </div>
+      <?php if ($i%3==0 && $i != 0){ 
+        echo "</div><div class='row'>";
+      }
+    }
+  } 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
