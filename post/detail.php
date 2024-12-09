@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	
 
 	$i=$_GET['post_id'];
 
@@ -26,10 +27,15 @@
 	}
 
 	function get_posts($prompt_id, $db) {
-		$sql = $sql = 'SELECT * FROM users INNER JOIN writing_posts ON users.user_id = writing_prompts.user_id WHERE prompt_id=:prompt_id;';
-		$stmt = $db->prepare($sql);
-		$stmt->execute(['prompt_id' => $prompt_id]);
-		$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		try {
+			$sql = $sql = 'SELECT * FROM users INNER JOIN writing_posts ON users.user_id = writing_prompts.user_id WHERE prompt_id=:prompt_id;';
+			$stmt = $db->prepare($sql);
+			$stmt->execute(['prompt_id' => $prompt_id]);
+			$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			return $posts;
+		} catch (PDOException $e) {
+			$posts = [];
+		}
 		return $posts;
 	}
 
@@ -39,6 +45,7 @@
 				<div class='row'>
 					<div class='column' style='float:left;width: 50%;'>{$post['username']}</div>
 						<div class='column' style='float:right;width: 50%;'>{$post['text']}</div>
+						
 						<p text-align='center'>{$post['text']}</p>
 					</div>
 				</div>";
@@ -61,24 +68,29 @@
 		<div class="container">
 			<?php 
 				$post = get_posts($i, $connection);
-				display_posts($post);
+				if (count($post) == 0) {
+					echo "<h3>No posts yet!</h3>";
+				}
+				else {
+					display_posts($post);
+				}
 			?>
-			</div>
 		</div>
-	</body>
-	<div class="mb-4">
-		<a href="index.php" class="btn btn-primary m-4">Back to prompt index</a>
-	</div>
+	
+		<div class="mb-4">
+			<a href="index.php" class="btn btn-primary m-4">Back to prompt index</a>
+		</div>
 
-	<?php if($_SESSION['username']!="guest"  && isset($_SESSION['username'])){ ?>
-			<a href="edit.php?post_id=<?= $i ?>" class="btn btn-primary m-4">Add To This Story!</a>
-	<?php } if($_SESSION['username']==$post[$i]['author']){ ?>
-		<form action="delete.php?id=<?= $i ?>" method="POST">
-			<input type="submit" value="Delete" name="delete" class="btn btn-danger">
-	    </form>
-	<?php } ?>
-	<!-- admin area -->
-	<?php if ($_SESSION['is_admin'] == 1) { ?>
-      <a href="admin.php?post_id=<?= $i ?>" class="btn btn-warning m-4">Admin Area</a>
-    <?php } ?>
+		<?php if($_SESSION['username']!="guest"  && $_SESSION['username'] != ''){ ?>
+				<a href="edit.php?post_id=<?= $i ?>" class="btn btn-primary m-4">Add To This Story!</a>
+		<?php } if($_SESSION['username']==$prompt['username']){ ?>
+			<form action="delete.php?id=<?= $i ?>" method="POST">
+				<input type="submit" value="Delete" name="delete" class="btn btn-danger">
+			</form>
+		<?php } ?>
+		<!-- admin area -->
+		<?php if ($_SESSION['is_admin'] == 1) { ?>
+		<a href="admin.php?post_id=<?= $i ?>" class="btn btn-warning m-4">Admin Area</a>
+		<?php } ?>
+	</body>
 </html>
