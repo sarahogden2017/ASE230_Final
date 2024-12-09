@@ -23,7 +23,7 @@
 			<div class='container text-center'>
 				<h3>Prompted by: <small class='text-body-secondary'>{$prompt['username']}</small></h3>
 				<h4><br /><br />The continuous story starts here:<br /></h4>
-			</div>";
+			";
 	}
 
 	function get_posts($prompt_id, $db) {
@@ -38,9 +38,9 @@
 			echo "
 				<div class='row'>
 					<div class='column' style='float:left;width: 50%;'>{$post['username']}</div>
-						<div class='column' style='float:right;width: 50%;'>{$post['text']}</div>
-						
-						<p text-align='center'>{$post['text']}</p>
+						<div class='column' style='float:right;width: 50%;'>{$post['date_created']}</div>
+						<hr>
+						<p>{$post['text']}</p>
 				</div>";
 		}
 	}
