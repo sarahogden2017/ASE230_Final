@@ -1,5 +1,6 @@
 <?php
 
+
 // https://youtu.be/j2AO1XUUZoM?si=Txi-fF0cTlzPuvWP&t=4139 this is what i am referencing
 session_start();
 require_once('../login_scripts/db.php');
@@ -17,6 +18,11 @@ $sql2 = 'SELECT date FROM post_likes WHERE post_ID=:post AND user_ID=:user';
 $stmt2 = $db->prepare($sql2);
 $stmt2->execute(['post' => $post, 'user' => $user_id]);
 $result2 = $stmt2->rowCount();
+
+function query($db, $sql, $data){
+	$stmt = $db->prepare($sql);
+	$stmt->execute($data);
+}
 
 if ($result2==0){
 	query($db, 'INSERT INTO post_likes(user_ID, date, post_ID) VALUES(?, DEFAULT, ?)',[$post, $user_id]);
