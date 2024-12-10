@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../login_scripts/db.php');
+require_once('../../lib/db.php');
 
 $i = $_GET['post_id'];
 

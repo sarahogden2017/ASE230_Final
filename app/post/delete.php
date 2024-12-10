@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../login_scripts/db.php');
+require_once('../../lib/db.php');
 
 function delete_posts_by_prompt($db, $prompt_id) {
     $stmt = $db->prepare("DELETE FROM writing_posts WHERE prompt_id = :prompt_id");
