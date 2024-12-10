@@ -13,7 +13,7 @@ $result1 = $stmt->fetch();
 
 $user_id = $result1['user_id'];
 
-$post = 2; //$_GET['post_ID'];
+$post = $_GET['id'];
 $sql2 = 'SELECT date FROM post_likes WHERE post_ID=:post AND user_ID=:user';
 $stmt2 = $db->prepare($sql2);
 $stmt2->execute(['post' => $post, 'user' => $user_id]);
