@@ -1,5 +1,5 @@
 <?php
-    require_once('db.php');
+    require_once('../db.php');
 
     $username = $_POST['username_signup'];
     $password = $_POST['password_signup'];
@@ -35,7 +35,7 @@
             var message = "<?php echo $message; ?>";
             if (message) {
                 alert(message);
-                window.location.href = '../index.php';
+                window.location.href = '../../app/index.php';
             }
         </script>
     </body>

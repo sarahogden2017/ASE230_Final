@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once('db.php');
+    require_once('../db.php');
 
     $username = $_POST['username_signin'];
     $password = $_POST['password_signin'];
@@ -23,7 +23,7 @@
             $_SESSION['stories_contributed'] = $user['stories_contributed'];
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['is_admin'] = $user['is_admin'];
-            header("Location: ../post/index.php");
+            header("Location: ../../app/post/index.php");
             exit();
         }
         else {
@@ -38,7 +38,7 @@
             var message = "<?php echo $message; ?>";
             if (message) {
                 alert(message);
-                window.location.href = '../index.php';
+                window.location.href = '../../app/index.php';
             }
         </script>
     </body>

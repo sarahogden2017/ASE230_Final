@@ -3,7 +3,7 @@
 
 // https://youtu.be/j2AO1XUUZoM?si=Txi-fF0cTlzPuvWP&t=4139 this is what i am referencing
 session_start();
-require_once('../login_scripts/db.php');
+require_once('../../lib/db.php');
 $user = $_SESSION['username'];
 // Get user id
 $sql = "SELECT user_id FROM users WHERE username = :username ";

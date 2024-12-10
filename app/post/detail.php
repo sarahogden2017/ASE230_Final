@@ -4,7 +4,7 @@
 
 	$i=$_GET['post_id'];
 
-	require_once('../login_scripts/db.php');
+	require_once('../../lib/db.php');
 	$connection = $db;
 	
 	function get_prompt($prompt_id, $db) {
@@ -83,7 +83,7 @@
 		<?php } ?>
 		<!-- admin area -->
 		<?php if ($_SESSION['is_admin'] == 1) { ?>
-		<a href="admin.php?post_id=<?= $i ?>" class="btn btn-warning m-4">Admin Area</a>
+		<a href="../admin/admin.php?post_id=<?= $i ?>" class="btn btn-warning m-4">Admin Area</a>
 		<?php } ?>
 	</body>
 </html>

@@ -5,11 +5,11 @@
     $new = $_POST['prompt_text'];
     if (isset($_POST['edit'])) {
         $new = $_POST['prompt_text'];
-        require_once('../login_scripts/db.php');
+        require_once('../../lib/db.php');
 
         $stmt = $db->prepare("UPDATE writing_prompts SET prompt_text = :new WHERE prompt_id = :i");
         $stmt->execute(['new' => $new, 'i' => $i]);
-        header('Location: detail.php?post_id=' . $i);
+        header('Location: ../post/detail.php?post_id=' . $i);
     }
 
 ?>
@@ -29,7 +29,7 @@
 			<h1 class='bg-primary text-white p-3 w-100'>Admin Area for post #<?php echo $i ?></h1>
         </div>
         <div class='container'>
-            <form action="delete.php?id=<?= $i ?>" method="POST">
+            <form action="../post/delete.php?id=<?= $i ?>" method="POST">
                 <input type="submit" value="Delete" name="delete" class="btn btn-danger">
             </form><br>
             <form action='' method='POST'>

@@ -3,7 +3,7 @@
 	// add to database
 	
 	// connect to db
-	require_once('../login_scripts/db.php');
+	require_once('../../lib/db.php');
 	
 	// make radio an int value for db
 	if ($_POST['visibility'] == 'public') {
