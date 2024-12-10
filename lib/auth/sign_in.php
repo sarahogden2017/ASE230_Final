@@ -27,10 +27,9 @@
             if ($_SESSION['is_admin'] = -10) {
                 $message = "User is locked.";
             }
-            else {
-                header("Location: ../../app/post/index.php");
-            }
-            exit();
+            
+            header("Location: ../../app/post/index.php");
+            
         }
         else {
             $message = "Incorrect password.";
