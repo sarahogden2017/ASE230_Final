@@ -1,4 +1,6 @@
 <?php
+
+// https://youtu.be/j2AO1XUUZoM?si=Txi-fF0cTlzPuvWP&t=4139 this is what i am referencing
 session_start();
 require_once('../login_scripts/db.php');
 $user = $_SESSION['username'];
