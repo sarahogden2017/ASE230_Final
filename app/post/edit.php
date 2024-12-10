@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../login_scripts/db.php');
+require_once('../../lib/db.php');
 
 $i = $_GET['post_id'];
 
@@ -55,13 +55,13 @@ $post = get_entity($db, $i);
         <h4><br /> <br /> The continuous story starts here: <br /></h4>
 
         <?php
-        $stmt = $db->prepare("SELECT * FROM writing_posts WHERE prompt_id = :prompt_id ORDER BY date_created ASC");
+        $stmt = $db->prepare("SELECT * FROM users INNER JOIN writing_posts ON users.user_id = writing_posts.user_id WHERE prompt_id = :prompt_id ORDER BY date_created ASC");
         $stmt->execute(['prompt_id' => $i]);
         $story_additions = $stmt->fetchAll();
 
         foreach ($story_additions as $addition) { ?>
             <div class="row">
-                <div class="column" style="float:left;width: 50%;"><?= $addition['user_id'] ?></div>
+                <div class="column" style="float:left;width: 50%;"><?= $addition['username'] ?></div>
                 <div class="column" style="float:right;width: 50%;"><?= $addition['date_created'] ?></div>
                 <hr>
             </div>

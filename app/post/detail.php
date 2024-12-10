@@ -4,7 +4,7 @@
 
 	$i=$_GET['post_id'];
 
-	require_once('../login_scripts/db.php');
+	require_once('../../lib/db.php');
 	$connection = $db;
 	
 	function get_prompt($prompt_id, $db) {
@@ -23,20 +23,14 @@
 			<div class='container text-center'>
 				<h3>Prompted by: <small class='text-body-secondary'>{$prompt['username']}</small></h3>
 				<h4><br /><br />The continuous story starts here:<br /></h4>
-			</div>";
+			";
 	}
 
 	function get_posts($prompt_id, $db) {
-		try {
-			$sql = $sql = 'SELECT * FROM users INNER JOIN writing_posts ON users.user_id = writing_prompts.user_id WHERE prompt_id=:prompt_id;';
-			$stmt = $db->prepare($sql);
-			$stmt->execute(['prompt_id' => $prompt_id]);
-			$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			return $posts;
-		} catch (PDOException $e) {
-			$posts = [];
-		}
-		return $posts;
+		$stmt = $db->prepare("SELECT * FROM users INNER JOIN writing_posts ON users.user_id = writing_posts.user_id WHERE prompt_id = :prompt_id ORDER BY date_created ASC");
+        $stmt->execute(['prompt_id' => $prompt_id]);
+        $story_additions = $stmt->fetchAll();
+		return $story_additions;
 	}
 
 	function display_posts($posts) {
@@ -44,10 +38,9 @@
 			echo "
 				<div class='row'>
 					<div class='column' style='float:left;width: 50%;'>{$post['username']}</div>
-						<div class='column' style='float:right;width: 50%;'>{$post['text']}</div>
-						
-						<p text-align='center'>{$post['text']}</p>
-					</div>
+						<div class='column' style='float:right;width: 50%;'>{$post['date_created']}</div>
+						<hr>
+						<p>{$post['text']}</p>
 				</div>";
 		}
 	}
@@ -90,7 +83,7 @@
 		<?php } ?>
 		<!-- admin area -->
 		<?php if ($_SESSION['is_admin'] == 1) { ?>
-		<a href="admin.php?post_id=<?= $i ?>" class="btn btn-warning m-4">Admin Area</a>
+		<a href="../admin/admin.php?post_id=<?= $i ?>" class="btn btn-warning m-4">Admin Area</a>
 		<?php } ?>
 	</body>
 </html>

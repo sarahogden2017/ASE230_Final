@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../login_scripts/db.php');
+require_once('../../lib/db.php');
 
 function delete_posts_by_prompt($db, $prompt_id) {
     $stmt = $db->prepare("DELETE FROM writing_posts WHERE prompt_id = :prompt_id");
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['id'])) {
     $stmt->execute(['id' => $entity_id]);
     $prompt = $stmt->fetch();
 
-    if ($prompt && $_SESSION['user_id'] == $prompt['user_id']) {
+    if ($prompt && $_SESSION['user_id'] == $prompt['user_id'] || $_SESSION['is_admin'] == 1) {
         delete_posts_by_prompt($db, $entity_id);
         delete_prompt($db, $entity_id);
         header('Location: index.php');

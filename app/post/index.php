@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../login_scripts/db.php');
+require_once('../../lib/db.php');
 $connection = $db;
 
 function display_box($title, $author, $ID) {
@@ -143,7 +143,7 @@ make_view($type, $username, $connection);
   </div> 
   <div class="container">
     <?php if($_SESSION['username'] != "guest" || empty($_SESSION['username'])){ ?>
-      <a href="../login_scripts/logout.php" class="btn btn-danger m-4">Logout</a>
+      <a href="../../lib/auth/logout.php" class="btn btn-danger m-4">Logout</a>
     <?php } ?>
   </div> 
 </body>
