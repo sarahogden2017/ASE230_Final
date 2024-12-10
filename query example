@@ -1,3 +1,0 @@
-POSSIBLE QUERY FOR DETAIL
-
-SELECT username, `text`, `likes`, `date_created` FROM `writing_posts` INNER JOIN users ON users.user_id = writing_posts.user_id WHERE writing_posts.prompt_id = 10 ORDER BY date_created ASC;
