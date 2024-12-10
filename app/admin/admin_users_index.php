@@ -43,6 +43,7 @@
         <div class='d-flex justify-content-center align-items-center'>
 			<h1 class='bg-primary text-white p-3 w-100'>Admin Area for Users</h1>
         </div>
+        <p> Due to the interdependent nature of posts, users cannot be deleted w/o ruining the continuity of stories. Deleting a user will set is_admin to -10 to prevent the user from logging in.</p>
         <div class='row'>
             <?php get_all_users($db); ?>
         

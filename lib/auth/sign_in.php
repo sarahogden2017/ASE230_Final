@@ -23,7 +23,13 @@
             $_SESSION['stories_contributed'] = $user['stories_contributed'];
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['is_admin'] = $user['is_admin'];
-            header("Location: ../../app/post/index.php");
+            
+            if ($_SESSION['is_admin'] = -10) {
+                $message = "User is locked.";
+            }
+            else {
+                header("Location: ../../app/post/index.php");
+            }
             exit();
         }
         else {
