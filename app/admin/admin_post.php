@@ -22,7 +22,7 @@
             <form action="../post/delete.php?id=<?= $i ?>" method="POST">
                 <input type="submit" value="Delete" name="delete" class="btn btn-danger">
             </form><br>
-            <form action='admin_edit.php?post_id=<?= $i ?>' method='POST'>
+            <form action='admin_post_edit.php?post_id=<?= $i ?>' method='POST'>
                 <input type='text' name='prompt_text' placeholder='Enter new prompt text' class='form-control'>
                 <input type='submit' value='Edit Prompt Text' name='edit' class='btn btn-warning'>
             </form>
