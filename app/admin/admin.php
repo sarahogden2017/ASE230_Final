@@ -2,16 +2,6 @@
     session_start();
     $i=$_GET['post_id'];
 
-    $new = $_POST['prompt_text'];
-    if (isset($_POST['edit'])) {
-        $new = $_POST['prompt_text'];
-        require_once('../../lib/db.php');
-
-        $stmt = $db->prepare("UPDATE writing_prompts SET prompt_text = :new WHERE prompt_id = :i");
-        $stmt->execute(['new' => $new, 'i' => $i]);
-        header('Location: ../post/detail.php?post_id=' . $i);
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +22,7 @@
             <form action="../post/delete.php?id=<?= $i ?>" method="POST">
                 <input type="submit" value="Delete" name="delete" class="btn btn-danger">
             </form><br>
-            <form action='' method='POST'>
+            <form action='admin_edit.php?post_id=<?= $i ?>' method='POST'>
                 <input type='text' name='prompt_text' placeholder='Enter new prompt text' class='form-control'>
                 <input type='submit' value='Edit Prompt Text' name='edit' class='btn btn-warning'>
             </form>
