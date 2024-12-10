@@ -146,5 +146,11 @@ make_view($type, $username, $connection);
       <a href="../../lib/auth/logout.php" class="btn btn-danger m-4">Logout</a>
     <?php } ?>
   </div> 
+  <div class="container">
+	<?php if ($_SESSION['is_admin'] == 1){ ?>
+		<a href="../admin/admin_users_index.php" class="btn btn-primary m-4">Admin User Area</a>
+	<?php } ?>
+  </div>
+  
 </body>
 </html>

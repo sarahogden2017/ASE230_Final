@@ -48,5 +48,6 @@
             <?php get_all_users($db); ?>
         
         </div>
+        <a href="../post/index.php" class="btn btn-primary m-4">Home</a>
     </body>
 </html>
