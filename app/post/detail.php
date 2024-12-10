@@ -42,9 +42,24 @@
 						<hr>
 						<p>{$post['text']}</p>
 				</div>";
+			// like button
+			?>
+			<script src="jquery-3.7.1.min.js">
+			<script>
+			$(document).on('click','.btn-post-like',function(){
+				var el=$(this);
+				$.get('likes.php?id='+$(this).attr('data-id'), function(data,status){
+					if(data=='liked'){
+						el.text('Unlike');
+					}
+					else el.text('Like');
+				});
+			});
+			</script>
+			<?php 
+			echo '<button class="btn-post-like" data-id="'.$post['post_id'].'">Like</button>';
 		}
 	}
-
 ?>
 
 <html>
