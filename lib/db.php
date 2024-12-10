@@ -1,11 +1,7 @@
 <?php
     // DB
 
-    //Configure credentials
-    $host='localhost';
-    $name='writing_forum';
-    $user='root';
-    $pass='';
+    require_once('../../settings.php');
 
     //Specify options
     $opt = [
@@ -15,5 +11,9 @@
     ];
 
     //Establish a connection to the db
-    $db=new PDO('mysql:host='.$host.';dbname='.$name.';charset=utf8mb4',$user,$pass,$opt);
+    try {
+        $db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4', DB_USER, DB_PASS, $opt);
+    } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
+    }
 ?>
