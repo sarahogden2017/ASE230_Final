@@ -24,7 +24,7 @@
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['is_admin'] = $user['is_admin'];
             
-            if ($_SESSION['is_admin'] = -10) {
+            if ($_SESSION['is_admin'] == -10) {
                 $message = "User is locked.";
             }
             
